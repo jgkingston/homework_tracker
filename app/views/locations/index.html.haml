@@ -1,0 +1,15 @@
+- @locations.each do |location|
+  .row
+    .col-md-9
+      %a
+        %h2= "#{location.city}, #{location.state}"
+      %p= location.blurb
+    .col-md-3
+      .btn-container
+        = link_to "Learn More", location_path(location), class: "btn btn-default"
+          
+    .col-xs-12
+      %ul
+      - location.offerings.each do |offering|
+        %li
+          %h4= offering.course.title
