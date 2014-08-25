@@ -1,0 +1,20 @@
+%div
+  = nested_form_for [@assignment, @submission], html: {class: ''} do |f| 
+    - if f.object.errors.messages.length>0
+      - f.object.errors.messages.each do | key, value |
+        = key.capitalize
+        - value.each do |message|
+          = message
+          %br
+    = f.hidden_field :assignment_id, value: @assignment.id
+    = f.hidden_field :user_id, value: current_user.id
+    = f.label :title, "Name", class: "control-label"
+    = f.text_field :title, class: "form-control"
+    = f.label :notes, "Notes", class: "control-label"
+    = f.text_area :notes, class: "form-control"
+    = f.fields_for :links do |link_form|
+      = link_form.label :path, "URL/SSH", class: "control-label"
+      = link_form.text_field :path, class: "form-control"
+      = link_form.link_to_remove "Remove this link"
+    %p= f.link_to_add "Add a link", :links
+    = f.submit  nil, class: 'btn btn-success'

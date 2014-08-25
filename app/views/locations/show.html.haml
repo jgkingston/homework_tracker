@@ -1,1 +1,5 @@
 =@location.city
+%ul
+-@location.courses.each do |course|
+  %li
+    =course.title

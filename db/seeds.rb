@@ -13,4 +13,22 @@ courses = Course.create([{title: 'Rails Engineering'}, {title: 'Front-End Engine
 locations.each do |location|
   Offering.create(location_id: location.id, course_id: "#{rand(1..4)}")
 end
+
+locations.each do |location|
+  location.offerings.each do |offering|
+    Cohort.create(location_id: offering.location_id, course_id: offering.course_id, start_date: '01/12/2015')
+  end
+end
+
+locations.each do |location|
+  location.cohorts.each do |cohort|
+    Curriculum.create(cohort_id: cohort.id, course_id: cohort.course.id)
+  end
+end
+
+assignments = Assignment.create([{summary: '', instructions: ''}, {summary: '', instructions: ''}, {summary: '', instructions: ''}, {summary: '', instructions: ''}, {summary: '', instructions: ''}, {summary: '', instructions: ''}, {summary: '', instructions: ''}, {summary: '', instructions: ''}])
+
+
+
+
   

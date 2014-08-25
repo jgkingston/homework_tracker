@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140822030050) do
+ActiveRecord::Schema.define(version: 20140825192115) do
 
   create_table "assignments", force: true do |t|
     t.string   "summary"
     t.text     "instructions"
-    t.integer  "user_id"
+    t.integer  "curriculum_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 20140822030050) do
     t.datetime "updated_at"
   end
 
+  create_table "contracts", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "cohort_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "courses", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -42,13 +49,15 @@ ActiveRecord::Schema.define(version: 20140822030050) do
   end
 
   create_table "curriculums", force: true do |t|
+    t.integer  "cohort_id"
+    t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "links", force: true do |t|
     t.string   "path"
-    t.integer  "homework_id"
+    t.integer  "submission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -88,6 +97,7 @@ ActiveRecord::Schema.define(version: 20140822030050) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "assignment_id"
   end
 
   create_table "users", force: true do |t|
@@ -103,6 +113,7 @@ ActiveRecord::Schema.define(version: 20140822030050) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "role",                   default: 0,  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

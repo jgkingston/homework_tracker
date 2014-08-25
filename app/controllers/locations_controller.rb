@@ -1,5 +1,7 @@
 class LocationsController < ApplicationController
 
+  skip_before_action :authenticate_user!
+
   before_action :find_location, only: [:show, :edit, :update, :destroy]
 
   def index

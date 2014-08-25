@@ -1,1 +1,22 @@
-=link_to "Locations", locations_path
+- if user_signed_in? 
+
+  .class-list
+    List of Registered Classes
+    %ul
+    - current_user.cohorts.each do |cohort|
+      %li
+        = link_to "#{cohort.course.title} | #{cohort.location.city}, #{cohort.location.state} | #{cohort.start_date}", location_cohort_path(cohort.location, cohort)
+        / %ul
+        /   - cohort.assignments.each do |assignment|
+        /     %li
+        /       = link_to "#{assignment.summary} Assignment", assignment_path(assignment)
+
+- else
+  .jumbotron
+    .container
+      %h1 Welcome to The Iron Tracker
+      %p This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
+      %p
+        = link_to 'Register »', new_user_registration_path, class: "btn btn-primary btn-lg", role: "button"
+
+  =link_to "Locations", locations_path

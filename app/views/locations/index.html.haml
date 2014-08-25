@@ -1,8 +1,8 @@
 - @locations.each do |location|
   .row
     .col-md-9
-      %a
-        %h2= "#{location.city}, #{location.state}"
+      %h2
+        = link_to "#{location.city}, #{location.state}", location_path(location)
       %p= location.blurb
     .col-md-3
       .btn-container
@@ -12,4 +12,5 @@
       %ul
       - location.offerings.each do |offering|
         %li
-          %h4= offering.course.title
+          %h4
+            = link_to offering.course.title, course_path(offering.course.id)

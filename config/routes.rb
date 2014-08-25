@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :assignments do
 
-    resources :homeworks do
+    resources :submissions do
       
       get :grade
       
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   end
 
-  resources :tiy_classes
+  resources :courses
 
   resources :students
 

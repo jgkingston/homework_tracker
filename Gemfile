@@ -28,11 +28,11 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'haml'
-gem 'quiet_assets'
+gem 'quiet_assets', group: :development
 gem 'workflow'
 gem 'devise'
-gem 'cancan'
-# gem "nested_form"
+gem 'pundit'
+gem "nested_form"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

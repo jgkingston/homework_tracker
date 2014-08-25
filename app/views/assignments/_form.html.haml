@@ -1,0 +1,16 @@
+%div.col-lg-8
+  = form_for @assignment, html: {class: ''} do |f|
+    - if f.object.errors.messages.length>0
+      - f.object.errors.messages.each do | key, value |
+        = key.capitalize
+        - value.each do |message|
+          = message
+          %br
+    = f.hidden_field :curriculum_id, value: params[:curriculum_id]
+    = f.label :summary, "Summary Description", class: 'control-label'
+    = f.text_field :summary, class: 'form-control' , autofocus: true
+    %br
+    = f.label :instructions, "Assignment Instructions", class: 'control-label'
+    = f.text_area :instructions, class: 'form-control'
+    %br
+    = f.submit  nil, class: 'btn btn-success'
