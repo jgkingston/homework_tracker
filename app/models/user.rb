@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :submissions
+
+  has_many :comments
   
   has_many :contracts
   has_many :cohorts, through: :contracts

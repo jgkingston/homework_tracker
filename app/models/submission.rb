@@ -7,4 +7,6 @@ class Submission < ActiveRecord::Base
 
   accepts_nested_attributes_for :links, allow_destroy: true
 
+  has_many :comments, as: :commentable
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140825192115) do
+ActiveRecord::Schema.define(version: 20140826190643) do
 
   create_table "assignments", force: true do |t|
     t.string   "summary"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20140825192115) do
     t.integer  "curriculum_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "repo",          default: "", null: false
   end
 
   create_table "cohorts", force: true do |t|
@@ -27,11 +29,16 @@ ActiveRecord::Schema.define(version: 20140825192115) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "git_username", default: "", null: false
   end
 
   create_table "comments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "content"
+    t.string   "commentable_type"
+    t.integer  "commentable_id"
+    t.integer  "user_id"
   end
 
   create_table "contracts", force: true do |t|
@@ -98,6 +105,8 @@ ActiveRecord::Schema.define(version: 20140825192115) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "assignment_id"
+    t.string   "repo"
+    t.integer  "limit",         default: 10, null: false
   end
 
   create_table "users", force: true do |t|
@@ -114,6 +123,9 @@ ActiveRecord::Schema.define(version: 20140825192115) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "role",                   default: 0,  null: false
+    t.string   "last_name"
+    t.string   "first_name"
+    t.string   "git_username",           default: "", null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -1,20 +1,25 @@
-= current_user.id
-= current_user.role
-= current_user.email
-%div
-  = @assignment.summary
-  %br
-  = @assignment.instructions
-%div
-  - if current_user.instructor?
-    %ul
-      = @assignment.submissions.each do |submission|
-        %li
-          = submission.title
-          %br
-          = submission.notes
-          %br
-          %ul
-            - assignment.links.each do |link|
-              %a
-                %li= link.path
+%div.row
+  %div.col-md-6
+    %div
+      %h3 
+        = "#{@assignment.summary} Assignment"
+      .well
+        = @assignment.instructions
+    %div
+      %h3 Submissions
+      .list-group
+        - @submissions.each do |submission|
+          %a.list-group-item{:href => "#{assignment_submission_path(@assignment, submission)}"}= submission.user.email 
+  %div.col-md-6
+    %h3 Comment Stream
+    %div.comments
+      - @assignment.comments.each do |comment_var|
+        = render 'comments/comment', comment: comment_var
+    %div
+      = form_for @comment, remote: true do |f|
+        = f.hidden_field :user_id, value: current_user.id
+        = f.hidden_field :commentable_type, value: "Assignment"
+        = f.hidden_field :commentable_id, value: @assignment.id
+        = f.text_area :content, class: "form-control"
+        %br
+        = f.submit "Add Comment"

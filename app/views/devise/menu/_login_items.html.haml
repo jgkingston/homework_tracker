@@ -1,6 +1,6 @@
 - if user_signed_in?
-  %li
-    = link_to 'Logout', destroy_user_session_path, :method => :delete, class: "btn btn-success"
+
+  = link_to 'Logout', destroy_user_session_path, :method => :delete, class: "btn btn-success"
 - else
   / %li
   /   = link_to('Login', new_user_session_path)
@@ -9,9 +9,9 @@
   / .form-group
   /   %input.form-control{:placeholder => "Password", :type => "password"}/
   / %button.btn.btn-success{:type => "submit"} Sign in
-  = resource
-  = resource_name
-  = session_path(resource_name)
+  / - resource
+  / - resource_name
+  / - session_path(resource_name)
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     .form-group
       = f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control"

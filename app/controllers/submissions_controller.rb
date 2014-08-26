@@ -8,6 +8,10 @@ class SubmissionsController < ApplicationController
     @submission = Submission.new
   end
 
+  def show
+    @comment = Comment.new
+  end
+
   def create
     @submission = Submission.create submission_params
     if @submission.save == true

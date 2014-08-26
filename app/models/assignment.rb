@@ -4,5 +4,6 @@ class Assignment < ActiveRecord::Base
 
   has_many :submissions
 
+  has_many :comments, as: :commentable
 
 end

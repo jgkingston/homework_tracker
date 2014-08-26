@@ -3,7 +3,8 @@ class AssignmentsController < ApplicationController
   before_action :find_assignment, only: [:show, :edit, :update, :destroy]
 
   def show
-    
+    @submissions = policy_scope(Submission).where(:assignment_id => @assignment.id)
+    @comment = Comment.new
   end
 
   def new

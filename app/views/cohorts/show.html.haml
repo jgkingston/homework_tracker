@@ -1,22 +1,23 @@
 - cohort = @cohort
-
-= "#{cohort.course.title} | #{cohort.location.city}, #{cohort.location.state} | #{cohort.start_date}"
-
-= current_user.id
-= current_user.role
-= current_user.email
-= current_user.student?
-
-%ul
+%div.col-md-12
+  %div
+    %h2
+      = "#{cohort.course.title} | #{cohort.location.city}, #{cohort.location.state} | #{cohort.start_date}"
+%div.col-md-6
   - cohort.assignments.each do |assignment|
-    %li
-      = link_to assignment.summary, assignment_path(assignment.id)
-      |
-      / = user_has_submitted?(assignment)
-      - if current_user.student? && user_has_submitted?(assignment)
-        = link_to "Edit", edit_assignment_submission_path(assignment, user_has_submitted?(assignment))
-      - elsif current_user.student?
-        = link_to "Submit", new_assignment_submission_path(assignment)
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title
+          = link_to "#{assignment.summary} Assignment", assignment_path(assignment.id)
+      .panel-body
+        %p= "#{assignment.instructions[0..249]}#{"\n . . ." if assignment.instructions.length > 250}"
+        / = user_has_submitted?(assignment)
+        - if current_user.student? && user_has_submitted?(assignment) && 1 == 2
+          = link_to "Edit", edit_assignment_submission_path(assignment, user_has_submitted?(assignment))
+          |
+          = link_to "View", assignment_submission_path(assignment, user_has_submitted?(assignment))
+        - elsif current_user.student? && 1 == 2
+          = link_to "Submit", new_assignment_submission_path(assignment)
 
   - if current_user.instructor?
     %li= link_to "Add New Assignment", new_assignment_path(curriculum_id: @cohort.curriculum.id)

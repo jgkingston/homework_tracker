@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   resources :courses
 
-  resources :students
+  resources :comments
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

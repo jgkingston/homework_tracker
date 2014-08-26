@@ -5,9 +5,21 @@
   %div
     = render 'form'
   %div
+    = f.label :last_name
+    %br/
+    = f.text_field :last_name, autofocus: true
+  %div
+    = f.label :first_name
+    %br/
+    = f.text_field :first_name
+  %div
+    = f.label :git_username
+    %br/
+    = f.text_field :git_username
+  %div
     = f.label :email
     %br/
-    = f.email_field :email, autofocus: true
+    = f.email_field :email
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     %div
       Currently waiting confirmation for: #{resource.unconfirmed_email}
