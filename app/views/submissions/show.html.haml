@@ -11,17 +11,16 @@
         %li
           %h4.submission-status
             = @submission.workflow_state.humanize
+        -if current_user.instructor?
+          %p.workflow-options{ajax_path: grade_assignment_submission_path(@assignment, @submission)}
+            = render 'submissions/workflow'
     %div
       .well
         = @submission.notes
       .list-group
         - @submission.links.each do |link|
-          %a.list-group-item{:url => "link.path"}
+          %a.list-group-item{:href => "#{link.path}"}
             = link.path
-    -if current_user.instructor? || 1 == 1
-      %div
-        .list-group.workflow-options{ajax_path: grade_assignment_submission_path(@assignment, @submission)}
-          = render 'submissions/workflow'
     %div
       %iframe{src: "http://tylerlh.github.com/github-latest-commits-widget/?username=#{@submission.user.git_username}&repo=#{@submission.repo}&limit=#{@submission.limit}", allowtransparency: "true", frameborder: "0", scrolling: "no", width: "100%", height: "252px"}
 

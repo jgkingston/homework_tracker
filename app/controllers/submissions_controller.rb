@@ -3,13 +3,16 @@ class SubmissionsController < ApplicationController
   before_action :find_assignment
   before_action :find_submission, only: [:show, :edit, :update, :destroy, :grade]
 
-
-  def new
-    @submission = Submission.new
+  def index
+    @submissions = Submission.all
   end
 
   def show
     @comment = Comment.new
+  end
+
+  def new
+    @submission = Submission.new
   end
 
   def create

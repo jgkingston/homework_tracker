@@ -26,4 +26,20 @@ module SubmissionsHelper
 
   end
 
+  def workflow_button_style key
+    @style = ""
+    case key
+    when :review
+      @style = 'btn-primary'
+    when :return
+      @style = 'btn-warning'
+    when :accept
+      @style ='btn-success' 
+    end
+  end
+
+   def get_states
+    @submission_states = ['new', 'reviewing', 'complete', 'incomplete']
+  end
+
 end
