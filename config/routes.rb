@@ -7,21 +7,16 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :locations do
-
     resources :cohorts
-
   end
 
   resources :assignments do
-
-    resources :submissions do
-      
-      get :grade
-      
+    resources :submissions do      
+      member do
+        get :grade
+      end
       resources :links
-
     end
-
   end
 
   resources :courses

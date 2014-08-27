@@ -12,12 +12,7 @@
       .panel-body
         %p= "#{assignment.instructions[0..249]}#{"\n . . ." if assignment.instructions.length > 250}"
         / = user_has_submitted?(assignment)
-        - if current_user.student? && user_has_submitted?(assignment) && 1 == 2
-          = link_to "Edit", edit_assignment_submission_path(assignment, user_has_submitted?(assignment))
-          |
-          = link_to "View", assignment_submission_path(assignment, user_has_submitted?(assignment))
-        - elsif current_user.student? && 1 == 2
-          = link_to "Submit", new_assignment_submission_path(assignment)
+        
 
   - if current_user.instructor?
     %li= link_to "Add New Assignment", new_assignment_path(curriculum_id: @cohort.curriculum.id)

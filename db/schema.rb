@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140826190643) do
+ActiveRecord::Schema.define(version: 20140827133234) do
 
   create_table "assignments", force: true do |t|
     t.string   "summary"
@@ -106,7 +106,8 @@ ActiveRecord::Schema.define(version: 20140826190643) do
     t.datetime "updated_at"
     t.integer  "assignment_id"
     t.string   "repo"
-    t.integer  "limit",         default: 10, null: false
+    t.integer  "limit",          default: 10, null: false
+    t.string   "workflow_state"
   end
 
   create_table "users", force: true do |t|
