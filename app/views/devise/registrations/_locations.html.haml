@@ -1,0 +1,5 @@
+%h4 Pick All Locations to Which You Would Like to Have Admin Rights
+- all_locations.each do |location|
+  = check_box_tag 'user[location_ids][]', location.id, @user.locations.include?(location), {id: "location_id_#{location.id}"}
+  = label_tag "location_id_#{location.id}", "#{location.city}, #{location.state}"
+  %br

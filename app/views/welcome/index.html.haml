@@ -1,15 +1,44 @@
-- if user_signed_in? 
+- if user_signed_in?
 
-  .class-list
-    List of Registered Classes
-    %ul
-    - current_user.cohorts.each do |cohort|
-      %li
-        = link_to "#{cohort.course.title} | #{cohort.location.city}, #{cohort.location.state} | #{cohort.start_date}", location_cohort_path(cohort.location, cohort)
-        / %ul
-        /   - cohort.assignments.each do |assignment|
-        /     %li
-        /       = link_to "#{assignment.summary} Assignment", assignment_path(assignment)
+  - if current_user.student? || current_user.instructor?
+    %div.col-md-6
+      - current_user.cohorts.each do |cohort|
+        .bs-component
+          %ul.nav.nav-pills
+            %li
+              = link_to "#{cohort.course.title} | #{cohort.location.city}, #{cohort.location.state} | #{cohort.start_date}", location_cohort_path(cohort.location, cohort), class: "btn btn-default"
+            - if current_user.instructor?
+              %li.pull-right
+                = link_to "View Students", "javascript:void(0)", ajax_path: dashboard_location_cohort_path(cohort.location_id, cohort), class: "btn btn-default cohort"
+
+
+  - if current_user.admin?
+    %div.col-md-6
+      - current_user.locations.each do |location|
+        %div
+          %h3
+            = link_to "#{location.city}, #{location.state}", edit_location_path(location)
+          %ul
+            - location.courses.each do |course|
+              %li
+                %h4
+                  = link_to course.title, edit_course_path(course)
+                %ul
+                  - location.cohorts.each do |cohort|
+                    - if cohort.course_id == course.id
+                      %li
+                        = link_to "#{cohort.course.title} | #{cohort.location.city}, #{cohort.location.state} | #{cohort.start_date}", location_cohort_path(cohort.location, cohort)
+                        %button.btn.btn-default.cohort{ ajax_path: dashboard_location_cohort_path(cohort.location_id, cohort)} View Students
+                  %li
+                    = link_to "Add Cohort", new_location_cohort_path(location, course_id: course.id)
+
+      %h3
+        = link_to "Create New Location", new_location_path
+      %h3
+        = link_to "Create New Course", new_course_path
+
+  - if current_user.instructor? || current_user.admin?
+    %div.col-md-6.dashboard
 
 - else
   .jumbotron

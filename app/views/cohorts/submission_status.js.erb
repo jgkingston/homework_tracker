@@ -1,0 +1,3 @@
+
+$('.status-report').html("")
+$(".status-report").append("<%= escape_javascript(render('cohorts/status_report', assignment: @assignment)) %>")

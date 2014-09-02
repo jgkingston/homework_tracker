@@ -1,31 +1,56 @@
 - cohort = @cohort
-%div.col-md-12
-  %div
-    %h2
-      = "#{cohort.course.title} | #{cohort.location.city}, #{cohort.location.state} | #{cohort.start_date}"
-%div.col-md-9
-  - cohort.assignments.each do |assignment|
+
+%div.col-md-8
+  %h2
+    = "#{cohort.course.title} | #{cohort.location.city}, #{cohort.location.state} | #{cohort.start_date}"
+  - cohort.assignments.order('created_at DESC').each do |assignment|
     .div.row
-      .div.col-md-8
-        .panel.panel-info
+      .div.col-md-10
+        .panel
           .panel-heading
-            %h3.panel-title
-              = link_to "#{assignment.summary} Assignment", assignment_path(assignment.id)
+            = link_to assignment_path(assignment.id) do
+              %h3.panel-title
+                = "#{assignment.summary} Assignment"
+                - submitted = assignment.submissions.find_by_user_id(current_user.id)
+                - if current_user.student?
+                  %span.pull-right
+                    - if submitted
+                      %i.glyphicon.glyphicon-check
+                    - else
+                      %i.glyphicon.glyphicon-unchecked
+
+
           .panel-body
             %p= "#{assignment.instructions[0..249]}#{"\n . . ." if assignment.instructions.length > 250}"
             / = user_has_submitted?(assignment)
-      - if current_user.instructor?
-        .div.col-md-3
-          %ul.nav.nav-pills
-            - get_states.each do |state|
-              %li.dropdown
-                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                  = "#{state.capitalize}"
-                  %span.badge= "#{assignment.submissions.where(:workflow_state => state).count}"
-                - if assignment.submissions.where(:workflow_state => state).count > 0
-                  %ul.dropdown-menu{:role => "menu"}
-                    - assignment.submissions.where(:workflow_state => state).each do |submission|
-                      %li
-                        = link_to "#{submission.user.last_name}, #{submission.user.first_name}", assignment_submission_path(assignment, submission)
+        - if current_user.instructor? || current_user.ta? || current_user.admin?
+          %div{style: "margin-bottom: 15px;"}
+            %div.btn-toolbar.bs-component
+              - get_states.each do |state|
+                .btn-group
+                  %a.btn.btn-default.assignment{ assignment_id: "#{assignment.id}" }
+                    = "#{state.capitalize}"
+                    %span.badge= "#{assignment.submissions.where(:workflow_state => state).count}"
+                  %a.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    %span.caret
+                  - if assignment.submissions.where(:workflow_state => state).count > 0
+                    %ul.dropdown-menu{:role => "menu"}
+                      - assignment.submissions.where(:workflow_state => state).each do |submission|
+                        %li
+                          = link_to "#{submission.user.last_name}, #{submission.user.first_name}", assignment_submission_path(assignment, submission)
+        
+            
   - if current_user.instructor?
-    = link_to "Add New Assignment", new_assignment_path(curriculum_id: @cohort.curriculum.id)
+    = link_to "Add New Assignment", new_assignment_path(cohort_id: @cohort.id)
+- if current_user.instructor? || current_user.admin?
+  %div.col-md-4
+    %div.cohort-side-bar
+      %h2 Homework Roundup
+      %table.table.status-report{ ajax_path: submission_status_location_cohort_path(@location, @cohort) }
+        %tr
+          %th Student
+          %th Status
+- if current_user.student?
+  = render partial: 'first_assignment', cohort: @cohort
+
+

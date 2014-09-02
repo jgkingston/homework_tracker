@@ -1,0 +1,3 @@
+
+$('.dashboard').html("")
+$(".dashboard").append("<%= escape_javascript(render('cohorts/student_dashboard', cohort: @cohort)) %>")

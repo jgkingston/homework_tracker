@@ -12,10 +12,45 @@ class LocationsController < ApplicationController
     
   end
 
+  def new
+    @location = Location.new
+  end
+
+  def create
+    @location = Location.create location_params
+    if @location.save == true
+      redirect_to root_path
+      flash[:success] = "Location successfully added."
+    else
+      render :new
+    end
+  end
+
+  def edit
+    
+  end
+
+  def update
+    if @location.update_attributes location_params
+      redirect_to root_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @location.destroy
+    redirect_to root_path
+  end
+
   private
 
   def find_location
     @location = Location.find params[:id]
+  end
+
+  def location_params
+    params.require(:location).permit(:city, :state, :description, {course_ids: []})
   end
 
 end

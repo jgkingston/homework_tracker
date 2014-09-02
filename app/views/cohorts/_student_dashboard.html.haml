@@ -1,0 +1,32 @@
+%div#accordion
+  - cohort_students(@cohort).each do |student|
+    %h3.student-header{ student_id: "#{student.id}" }
+      = "#{student.last_name}, #{student.first_name}"
+      %span.badge.missing.pull-right= "#{@cohort.assignments.count - student.submissions.count}"
+      %span.badge.incomplete.pull-right= "#{student.submissions.where(:workflow_state => 'incomplete').count}"
+      
+    %table.table.hidden{class: "table-striped assignments #{student.id}_assignments"}
+      %tr
+        %th Assignments
+        %th Submission
+        %th Status
+      - @cohort.assignments.order('created_at DESC').each do |assignment|
+        %tr
+          %td
+            = link_to assignment_path(assignment, ) do
+              %div= assignment.summary
+          %td
+            - check = assignment.submissions.find_by_user_id(student.id)
+            - if check
+              = link_to assignment_submission_path(assignment, check) do
+                %div= check.title
+            / = assignment.submissions.find_by_user_id(student.id).try(:title)
+          %td= assignment.submissions.find_by_user_id(student.id).try(:workflow_state)
+
+      / - student.submissions.each do |submission|
+      /   %tr
+      /     %td= submission.assignment.summary
+      /     %td= submission.title
+      /     %td= submission.workflow_state
+
+   

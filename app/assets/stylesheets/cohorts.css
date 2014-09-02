@@ -1,0 +1,14 @@
+
+
+.cohort-side-bar {
+}
+
+.cohort-side-bar.affix {
+  position: fixed;
+  top: 50px;
+  width: 350px
+}
+
+.affix {
+  transform: translate3d(0,0,0);
+}

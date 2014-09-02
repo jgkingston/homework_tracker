@@ -14,11 +14,28 @@ class AssignmentsController < ApplicationController
   def create
     @assignment = Assignment.create assignment_params
     if @assignment.save == true
-      redirect_to location_cohort_path(@assignment.curriculum.cohort.location, @assignment.curriculum.cohort )
+      redirect_to location_cohort_path(@assignment.cohort.location, @assignment.cohort )
       flash[:success] = "Assignment successfully added."
     else
       render :new
     end
+  end
+
+  def edit
+    
+  end
+
+  def update
+    if @assignment.update_attributes assignment_params
+      redirect_to assignment_path(@assignment)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @assignment.destroy
+    redirect_to location_cohort_path(@location, @cohort)
   end
 
   private
@@ -28,7 +45,7 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.require(:assignment).permit(:summary, :instructions, :curriculum_id)
+    params.require(:assignment).permit(:summary, :instructions, :cohort_id)
   end
 
 end

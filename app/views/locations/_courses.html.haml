@@ -1,0 +1,5 @@
+%h4 Select The Courses Offered By This Location
+- all_courses.each do |course|
+  = check_box_tag 'location[course_ids][]', course.id, @location.courses.include?(course), {id: "course_id_#{course.id}"}
+  = label_tag "course_id_#{course.id}", "#{course.title}"
+  %br

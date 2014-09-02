@@ -7,7 +7,6 @@ class Cohort < ActiveRecord::Base
   has_many :contracts
   has_many :users, through: :contracts
 
-  has_one :curriculum
-  has_many :assignments, through: :curriculum
+  has_many :assignments
 
 end

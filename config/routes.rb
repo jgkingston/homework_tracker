@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :locations do
-    resources :cohorts
+    resources :cohorts do
+      member do
+        get :submission_status
+        get :dashboard
+      end
+    end
   end
 
   resources :assignments do
@@ -22,6 +27,7 @@ Rails.application.routes.draw do
   resources :courses
 
   resources :comments
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

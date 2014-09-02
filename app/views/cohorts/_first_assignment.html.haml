@@ -1,0 +1,19 @@
+- assignment = @cohort.assignments.order('created_at DESC').first
+%div.col-md-4
+  %div
+    %h3 
+      = "#{assignment.summary} Assignment"
+      - if current_user.instructor?
+        = link_to "Edit", edit_assignment_path(assignment)
+    .well
+      = assignment.instructions
+  %div
+    
+    - if current_user.student? && (not user_has_submitted?(assignment))
+      = link_to "Submit", new_assignment_submission_path(assignment)
+  - submission = user_has_submitted?(assignment)
+  - if submission
+    %div
+      %h3 Submission
+      
+      %a.list-group-item{:href => "#{assignment_submission_path(assignment, submission)}"}= submission.user.email

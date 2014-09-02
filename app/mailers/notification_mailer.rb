@@ -6,7 +6,7 @@ class NotificationMailer < ActionMailer::Base
     @assignment = assignment
     @content = content
     # @url  = 'http://example.com/login'
-    mail(to: assignment.curriculum.cohort.users.map(&:email), subject: "#{user.email} has commented on #{assignment.summary}")
+    mail(to: assignment.cohort.users.map(&:email), subject: "#{user.email} has commented on #{assignment.summary}")
   end
 
   def submission_notification submission, user, content
@@ -14,9 +14,9 @@ class NotificationMailer < ActionMailer::Base
     @submission = submission
     @content = content
     if user.instructor?
-      mail(to: submission.user.email, subject: 'Welcome to My Awesome Site')
+      mail(to: submission.user.email, subject: "#{user.email} has commented on #{submission.title}")
     elsif user.student?
-      mail(to: submission.assignment.user.email, subject: 'Welcome to My Awesome Site')
+      mail(to: submission.cohort.users.where(:role => 'instructor').map(&:email), subject: "#{user.email} has a question about #{submission.assignment.summary}")
     end
   end
 

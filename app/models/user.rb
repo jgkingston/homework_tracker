@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   has_many :contracts
   has_many :cohorts, through: :contracts
 
+  has_many :admin_rights
+  has_many :locations, through: :admin_rights
+
   enum role: [:student, :ta, :instructor, :admin]
   after_initialize :set_default_role, :if => :new_record?
 

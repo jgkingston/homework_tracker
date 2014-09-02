@@ -34,6 +34,8 @@ gem 'devise'
 gem 'pundit'
 gem "nested_form"
 gem "validate_url"
+# gem 'jquery-ui-rails'
+gem 'faker'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

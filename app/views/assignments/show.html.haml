@@ -3,14 +3,13 @@
     %div
       %h3 
         = "#{@assignment.summary} Assignment"
+        - if current_user.instructor?
+          = link_to "Edit", edit_assignment_path(@assignment)
       .well
         = @assignment.instructions
     %div
-      - if current_user.student? && user_has_submitted?(@assignment) && 1 ==  2
-        = link_to "Edit", edit_assignment_submission_path(@assignment, user_has_submitted?(@assignment))
-        |
-        = link_to "View", assignment_submission_path(@assignment, user_has_submitted?(@assignment))
-      - elsif current_user.student?
+      
+      - if current_user.student? && (not user_has_submitted?(@assignment))
         = link_to "Submit", new_assignment_submission_path(@assignment)
     %div
       %h3 Submissions
@@ -20,15 +19,17 @@
 
   %div.col-md-6
     %h3 Comment Stream
-    %div.comments
-      - @assignment.comments.each do |comment_var|
+    
+    %div.col-md-12.comments
+      - @assignment.comments.order('created_at DESC').each do |comment_var|
         = render 'comments/comment', comment: comment_var
-
-    %div
+    %div.col-md-12.new-comment
       = form_for @comment, remote: true do |f|
         = f.hidden_field :user_id, value: current_user.id
         = f.hidden_field :commentable_type, value: "Assignment"
         = f.hidden_field :commentable_id, value: @assignment.id
         = f.text_area :content, class: "form-control"
         %br
-        = f.submit "Add Comment"
+        = f.submit "Add Comment", class: "btn btn-primary"
+
+    

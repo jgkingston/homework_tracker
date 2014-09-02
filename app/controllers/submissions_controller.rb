@@ -62,7 +62,7 @@ class SubmissionsController < ApplicationController
   end
 
   def submission_params
-    params.require(:submission).permit(:title, :notes, :assignment_id, :user_id, :workflow_state, links_attributes: [:id, :path, :submission_id, :_destroy])
+    params.require(:submission).permit(:title, :notes, :assignment_id, :user_id, :workflow_state, :repo, links_attributes: [:id, :path, :submission_id, :_destroy])
   end
 
 end

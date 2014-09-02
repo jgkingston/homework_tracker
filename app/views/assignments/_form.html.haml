@@ -6,7 +6,7 @@
         - value.each do |message|
           = message
           %br
-    = f.hidden_field :curriculum_id, value: params[:curriculum_id]
+    = f.hidden_field :cohort_id, value: params[:cohort_id]
     = f.label :summary, "Summary Description", class: 'control-label'
     = f.text_field :summary, class: 'form-control' , autofocus: true
     %br

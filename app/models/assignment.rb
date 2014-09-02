@@ -1,6 +1,6 @@
 class Assignment < ActiveRecord::Base
 
-  belongs_to :curriculum
+  belongs_to :cohort
 
   has_many :submissions
 
