@@ -39,7 +39,7 @@ module SubmissionsHelper
   end
 
    def get_states
-    @submission_states = ['new', 'reviewing', 'complete', 'incomplete']
+    ['new', 'reviewing', 'complete', 'incomplete']
   end
 
 end

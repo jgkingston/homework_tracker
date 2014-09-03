@@ -6,8 +6,12 @@
     - if current_user.admin?
       %div
         = render 'locations'
-  %div
-    = render 'cohorts'
+  - if user_signed_in? == false
+    %div
+      = render 'cohorts'
+  - if user_signed_in?
+    - if current_user.admin? == false
+      = render 'cohorts'
   %div
     = f.label :last_name
     %br/
@@ -44,5 +48,5 @@
   %div= f.submit "Update"
 %h3 Cancel my account
 %p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
+  Filled with the burning rage of a thousand fiery suns? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
 = link_to "Back", :back

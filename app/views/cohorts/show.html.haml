@@ -21,7 +21,7 @@
 
 
           .panel-body
-            %p= "#{assignment.instructions[0..249]}#{"\n . . ." if assignment.instructions.length > 250}"
+            %p= "#{assignment.instructions[0..249]}#{"\n"}#{". . ." if assignment.instructions.length > 250}"
             / = user_has_submitted?(assignment)
         - if current_user.instructor? || current_user.ta? || current_user.admin?
           %div{style: "margin-bottom: 15px;"}
@@ -29,15 +29,15 @@
               - get_states.each do |state|
                 .btn-group
                   %a.btn.btn-default.assignment{ assignment_id: "#{assignment.id}" }
-                    = "#{state.capitalize}"
-                    %span.badge= "#{assignment.submissions.where(:workflow_state => state).count}"
+                    = state.capitalize
+                    %span.badge= assignment.submissions_with_status(state).count
                   %a.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                     %span.caret
                   - if assignment.submissions.where(:workflow_state => state).count > 0
                     %ul.dropdown-menu{:role => "menu"}
                       - assignment.submissions.where(:workflow_state => state).each do |submission|
                         %li
-                          = link_to "#{submission.user.last_name}, #{submission.user.first_name}", assignment_submission_path(assignment, submission)
+                          = link_to submission.user.full_name, assignment_submission_path(assignment, submission)
         
             
   - if current_user.instructor?

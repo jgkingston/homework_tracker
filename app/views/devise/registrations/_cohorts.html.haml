@@ -1,5 +1,8 @@
+ 
+
 %h4 Pick All Cohorts for Which You Would Like to Register 
-- all_cohorts.each do |cohort|
+
+- all_cohorts.where('start_date > ?', Date.today - 7.day ).each do |cohort|
   = check_box_tag 'user[cohort_ids][]', cohort.id, @user.cohorts.include?(cohort), {id: "cohort_id_#{cohort.id}"}
   = label_tag "cohort_id_#{cohort.id}", "#{cohort.course.title} | #{cohort.location.city}, #{cohort.location.state} | #{cohort.start_date}"
   %br

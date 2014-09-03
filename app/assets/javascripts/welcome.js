@@ -19,3 +19,4 @@ $(document).on('click', '.student-header', function(){
   $('.assignments').hide()
   $(id).removeClass('hidden').show()
 })
+

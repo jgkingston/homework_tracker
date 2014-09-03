@@ -1,0 +1,23 @@
+%div
+  - current_user.locations.each do |location|
+    %div.users-by-location{ location_id: location.id}
+      = location.city
+      %ul{class: "location_#{location.id} hidden users"} 
+        - location.cohorts.each do |cohort|
+          - cohort.users.each do |user|
+            %li
+              = link_to user.full_name, user_path(user)
+              |
+              = link_to "Delete", user_path(user), method: :delete
+              
+
+  / %div#accordion
+  /   - @cohort.students.each do |student|
+  /     %h3.student-header{ student_id: "#{student.id}" }
+  /       = student.full_name
+
+
+/ %ul
+/   - @users.each do |user|
+/     %li
+/       = user.full_name

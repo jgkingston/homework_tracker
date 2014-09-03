@@ -21,7 +21,7 @@ end
 
 locations.each do |location|
   location.offerings.each do |offering|
-    Cohort.create(location_id: offering.location_id, course_id: offering.course_id, start_date: '01/12/2015')
+    Cohort.create(location_id: offering.location_id, course_id: offering.course_id, start_date: '05/01/2015')
   end
 end
 
@@ -40,7 +40,7 @@ cohorts.each do |cohort|
   students = cohort.users.all
   students.each do |student|
     assignments.each do |assignment|
-      assignment.comments.create(content: "#{Faker::Lorem.sentences}", user_id: student.id)
+      assignment.comments.create(content: "#{Faker::Lorem.sentence(2)}", user_id: student.id)
       workflow_states = ['new', 'reviewing', 'complete', 'incomplete']
       assignment.submissions.create(title: "my #{assignment.summary}", notes: "#{Faker::Hacker.say_something_smart}", user_id: student.id, assignment_id: assignment.id, repo: assignment.summary.gsub(/ /, '_').gsub('-', '_'), workflow_state: workflow_states[rand(0..3)])
     end
@@ -50,9 +50,9 @@ cohorts.each do |cohort|
     first_name = Faker::Name.first_name
     instructor = cohort.users.create(last_name: "#{Faker::Name.last_name}", first_name: first_name, git_username: first_name.downcase ,email: "#{Faker::Internet.email}", password: password, password_confirmation: password, role: 2)
     cohort.assignments.each do |assignment|
-      assignment.comments.create(content: "#{Faker::Lorem.sentences}", user_id: instructor.id)
+      assignment.comments.create(content: "#{Faker::Lorem.sentence(2)}", user_id: instructor.id)
       assignment.submissions.each do |submission|
-        submission.comments.create(content: "#{Faker::Lorem.sentences}", user_id: instructor.id)
+        submission.comments.create(content: "#{Faker::Lorem.sentence(2)}", user_id: instructor.id)
       end
     end
   end

@@ -31,11 +31,18 @@
                         %button.btn.btn-default.cohort{ ajax_path: dashboard_location_cohort_path(cohort.location_id, cohort)} View Students
                   %li
                     = link_to "Add Cohort", new_location_cohort_path(location, course_id: course.id)
-
-      %h3
-        = link_to "Create New Location", new_location_path
-      %h3
-        = link_to "Create New Course", new_course_path
+      / .btn-group.btn-group-justified
+      /   %a.btn.btn-default{:href => "#"} Course
+      /   %a.btn.btn-default{:href => "#"} Location
+      /   %a.btn.btn-default{:href => "#"} Start Date
+      / - current_user.locations.each do |location|
+      /   - location.cohorts.each do |cohort|
+      /     .btn-group.btn-group-justified
+      /       %a.btn.btn-default{:href => "#"}= cohort.course.title
+      /       %a.btn.btn-default{:href => "#"}= "#{cohort.location.city}, #{cohort.location.state}"
+      /       %a.btn.btn-default{:href => "#"}= cohort.start_date
+            
+      / %a.btn.btn-default.btn-lg.btn-block{:href => "#"} Add Cohort
 
   - if current_user.instructor? || current_user.admin?
     %div.col-md-6.dashboard

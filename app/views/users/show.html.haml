@@ -1,0 +1,7 @@
+= form_for @user do |f|
+  = "#{@user.first_name} #{@user.last_name}'s Role: #{@user.role.humanize}"
+  %br
+  = f.label :role, "Select User Role"
+  = f.select :role, options_for_select( @roles)
+  %br
+  = f.submit

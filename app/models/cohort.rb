@@ -9,4 +9,8 @@ class Cohort < ActiveRecord::Base
 
   has_many :assignments
 
+  def students
+    self.users.where(:role => 0)
+  end
+
 end

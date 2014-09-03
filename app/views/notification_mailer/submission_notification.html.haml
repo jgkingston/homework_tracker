@@ -3,8 +3,8 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
   %body
-    %h1= "#{@user.email} has commented on #{@submission.title}"
-    %p= "#{@user.email} wrote:"
+    %h1= "#{@user.full_name} has commented on #{@submission.title}"
+    %p= "#{@user.full_name} wrote:"
     %p= @content
     %br
     %p= "To view the original comment, just follow this link: #{@url}."

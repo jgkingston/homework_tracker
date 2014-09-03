@@ -2,10 +2,10 @@
   %th Student
   %th Status
 
-- cohort_students(@cohort).each do |student|
+- @cohort.students.each do |student|
   %tr
     %td
-      = link_to "#{student.last_name}, #{student.first_name}", assignment_submission_path(@assignment, student.submissions.find_by_user_id(student.id))
+      = link_to student.full_name, assignment_submission_path(@assignment, student.submissions.find_by_user_id(student.id))
     %td
       - student.submissions.where(:assignment_id => @assignment.id).each do |submission|
         = submission.workflow_state.humanize

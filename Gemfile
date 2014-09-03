@@ -37,6 +37,14 @@ gem "validate_url"
 # gem 'jquery-ui-rails'
 gem 'faker'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
