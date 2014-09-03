@@ -13,6 +13,11 @@ FactoryGirl.define do
     password_confirmation "password"
   end
 
+  factory :contract do
+    cohort
+    association :user, factory: :student
+  end
+
   factory :instructor, class: User do
     first_name "Teacher"
     last_name "User"
@@ -42,8 +47,9 @@ FactoryGirl.define do
     description "Magic!"
   end
 
-  factory :offering, :parent => :course do
-    locations {[FactoryGirl.create(:location)]}
+  factory :offering do
+    location
+    course
   end
 
   factory :cohort do
@@ -62,7 +68,7 @@ FactoryGirl.define do
 
     factory :assignment_with_submissions do
 
-      transient do
+      ignore do
         submissions_count 5
       end
 

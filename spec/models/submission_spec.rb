@@ -7,8 +7,10 @@ describe Submission do
   it 'instantiates an submission' do
     expect(submission.class.name).to eq("Submission")
     expect(submission.user.class.name).to eq("User")
-    puts submission.user.full_name
-    puts submission.user.id
+    expect(submission.assignment.class.name).to eq("Assignment")
+    expect(submission.assignment.cohort.class.name).to eq("Cohort")
+    puts submission.assignment.summary
+    puts submission.assignment.cohort.start_date
   end
 
 end

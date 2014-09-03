@@ -17,16 +17,16 @@
         %br/
         = f.text_field :git_username
       %div
-        = f.label :email
+        = f.label :email, id: '#registration-email'
         %br/
-        = f.email_field :email
+        = f.email_field :email, id: '#registration-email'
       %div
-        = f.label :password
+        = f.label :password, id: '#registration-password'
         - if @validatable
           %i
             (#{@minimum_password_length} characters minimum)
         %br/
-        = f.password_field :password, autocomplete: "off"
+        = f.password_field :password, autocomplete: "off",id: '#registration-password'
       %div
         = f.label :password_confirmation
         %br/
