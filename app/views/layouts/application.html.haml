@@ -60,7 +60,16 @@
 
 
 
-    %p.notice= notice
-    %p.alert= alert
+    .alertBoxContainer.col-xs-10.col-xs-offset-1
+      .alert.alert-success.alert-dismissible{:role => "alert"}
+        %button.close{"data-dismiss" => "alert", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+          %span.sr-only Close
+        %p.signInReturnSuccess= notice
+      .alert.alert-danger.alert-dismissible{:role => "alert"}
+        %button.close{"data-dismiss" => "alert", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+          %span.sr-only Close
+        %p.signInReturnAlert= alert
     .container
       = yield

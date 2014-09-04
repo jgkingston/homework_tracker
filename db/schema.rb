@@ -85,20 +85,6 @@ ActiveRecord::Schema.define(version: 20140831141536) do
     t.datetime "updated_at"
   end
 
-  create_table "students", force: true do |t|
-    t.string   "last_name"
-    t.string   "first_name"
-    t.date     "dob"
-    t.string   "mailing_address"
-    t.string   "email"
-    t.string   "phone"
-    t.string   "twitter"
-    t.string   "github"
-    t.text     "bio"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "submissions", force: true do |t|
     t.string   "title"
     t.text     "notes"
@@ -106,7 +92,7 @@ ActiveRecord::Schema.define(version: 20140831141536) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "assignment_id"
-    t.string   "repo"
+    t.string   "repo",           default: "", null: false
     t.integer  "limit",          default: 10, null: false
     t.string   "workflow_state"
   end

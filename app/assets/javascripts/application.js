@@ -16,3 +16,22 @@
 //= require jquery_nested_form
 //= require jquery-ui
 //= require_tree .
+
+var signInRetrunSuccess;
+var signInReturnAlert;
+
+$(document).ready(function (){
+
+    if ($('.signInReturnSuccess').text() == ""){
+        $('.signInReturnSuccess').closest('.alert').addClass('hidden');
+    };
+
+    if ($('.signInReturnAlert').text() == ""){
+        $('.signInReturnAlert').closest('.alert').addClass('hidden');
+    };
+
+    if ($('.signInErrorReturn').text() == ""){
+        $('.signInErrorReturn').closest('.alert').addClass('hidden');
+    }
+
+});

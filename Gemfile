@@ -42,7 +42,7 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', :require => false
 end
 
 # Use ActiveModel has_secure_password
