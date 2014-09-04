@@ -8,6 +8,5 @@ class Course < ActiveRecord::Base
   has_many :cohorts
 
   validates :title, presence: true
-  validates :description, presence: true
 
 end

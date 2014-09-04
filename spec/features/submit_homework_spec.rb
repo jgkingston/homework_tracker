@@ -9,7 +9,7 @@ describe "submit homework", type: :feature, js: true do
   let!(:student) { create(:student) }
   let!(:contract) { create(:contract, user: student, cohort: assignment.cohort) }
 
-  # This seems cleaner and uses associations but it does not work
+  # This seems cleaner and uses associations but it does not work ... yet
   # let!(:assignment) { build(:assignment) }
   # let!(:student) { build(:student) }
   # let!(:contract) { create(:contract, user: student, cohort: assignment.cohort) }
@@ -17,7 +17,7 @@ describe "submit homework", type: :feature, js: true do
   it "should allow user a student user to log in, navigate to assignment page and submit homework" do
 
     visit '/'
-    fill_in "Email", with: "student1@student.com"
+    fill_in "Email", with: "#{student.email}"
     fill_in "Password", with: "password"
     click_button "Log in"
     expect(page).to have_content("Student")

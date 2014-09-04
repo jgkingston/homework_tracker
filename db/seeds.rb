@@ -10,10 +10,16 @@ locations = Location.create([{ city: 'Asheville', state: 'NC', blurb: 'Known aro
 
 courses = Course.create([{title: 'Rails Engineering'}, {title: 'Front-End Engineering'}, {title: 'Web Design'}, {title: 'Mobile Engineering'}])
 
+def create_user parent, role
+  password = "#{Faker::Internet.password(8)}"
+  first_name = Faker::Name.first_name
+  parent.users.create(last_name: "#{Faker::Name.last_name}", first_name: first_name, git_username: first_name.downcase ,email: "#{Faker::Internet.email}", password: password, password_confirmation: password, role: role)
+end
+
 locations.each do |location|
   password = "#{Faker::Internet.password(8)}"
   first_name = Faker::Name.first_name
-  location.users.create(last_name: "#{Faker::Name.last_name}", first_name: first_name, git_username: first_name.downcase ,email: "#{Faker::Internet.email}", password: password, password_confirmation: password, role: 3)
+  create_user(location, 3)
   split = rand(2..4)
   Offering.create(location_id: location.id, course_id: "#{rand(1...split)}")
   Offering.create(location_id: location.id, course_id: "#{rand(split..4)}")
@@ -29,13 +35,11 @@ cohorts = Cohort.all
 
 cohorts.each do |cohort|
   3.times do 
-    Assignment.create(summary: "#{Faker::Hacker.adjective} #{Faker::Commerce.product_name}", instructions: "#{Faker::Hacker.say_something_smart}", cohort_id: cohort.id)
+    Assignment.create(summary: "#{Faker::Hacker.adjective} #{Faker::Commerce.product_name}", instructions: "#{Faker::Hacker.say_something_smart}", cohort_id: cohort.id, due_date: "12/12/2014")
   end
   assignments = cohort.assignments.all
   5.times do 
-    password = "#{Faker::Internet.password(8)}"
-    first_name = Faker::Name.first_name
-    cohort.users.create(last_name: "#{Faker::Name.last_name}", first_name: first_name, git_username: first_name.downcase ,email: "#{Faker::Internet.email}", password: password, password_confirmation: password, role: 0)
+    create_user(cohort, 0)
   end
   students = cohort.users.all
   students.each do |student|
@@ -46,9 +50,7 @@ cohorts.each do |cohort|
     end
   end
   1.times do
-    password = "#{Faker::Internet.password(8)}"
-    first_name = Faker::Name.first_name
-    instructor = cohort.users.create(last_name: "#{Faker::Name.last_name}", first_name: first_name, git_username: first_name.downcase ,email: "#{Faker::Internet.email}", password: password, password_confirmation: password, role: 2)
+    instructor = create_user(cohort, 2)
     cohort.assignments.each do |assignment|
       assignment.comments.create(content: "#{Faker::Lorem.sentence(2)}", user_id: instructor.id)
       assignment.submissions.each do |submission|
@@ -57,9 +59,7 @@ cohorts.each do |cohort|
     end
   end
   1.times do 
-    password = "#{Faker::Internet.password(8)}"
-    first_name = Faker::Name.first_name
-    cohort.users.create(last_name: "#{Faker::Name.last_name}", first_name: first_name, git_username: first_name.downcase ,email: "#{Faker::Internet.email}", password: password, password_confirmation: password, role: 1)
+    create_user(cohort, 1)
   end
 end
 

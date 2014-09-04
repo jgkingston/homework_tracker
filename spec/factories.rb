@@ -40,6 +40,7 @@ FactoryGirl.define do
     city "Charleston"
     state "SC"
     blurb "It's in Charleston, SC"
+    courses []
   end
 
   factory :course do
