@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   end
 
   def list_roles
-    [ ["student", 0], ["ta", 1], ["instructor", 2], ["admin", 3] ]
+    [ ["student", :student], ["ta", :ta], ["instructor", :instructor], ["admin", :admin] ]
   end
 
 end

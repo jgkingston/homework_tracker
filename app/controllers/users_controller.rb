@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @roles = [ ["student", 0], ["ta", 1], ["instructor", 2], ["admin", 3] ]
+    @roles = [ ["student", :student], ["ta", :ta], ["instructor", :instructor], ["admin", :admin] ]
     authorize @user
   end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     authorize @user
     if @user.update_attributes(secure_params)
       redirect_to users_path, :notice => "User updated."
-      UpdateRoleMailer.role_change_notification(@user, current_user).deliver
+      # UpdateRoleMailer.role_change_notification(@user, current_user).deliver
     else
       redirect_to users_path, :alert => "Unable to update user."
     end
