@@ -17,6 +17,10 @@
         %br/
         = f.text_field :git_username
       %div
+        = f.label :role, "Select User Role"
+        %br/
+        = f.select :role, options_for_select( resource.list_roles)
+      %div
         = f.label :email, id: '#registration-email'
         %br/
         = f.email_field :email, id: '#registration-email'

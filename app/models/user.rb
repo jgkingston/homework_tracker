@@ -32,4 +32,8 @@ class User < ActiveRecord::Base
     self.submissions.where(:workflow_state => workflow_state)
   end
 
+  def list_roles
+    [ ["student", 0], ["ta", 1], ["instructor", 2], ["admin", 3] ]
+  end
+
 end
