@@ -9,11 +9,11 @@ class LocationsController < ApplicationController
   end
 
   def show
-    
   end
 
   def new
     @location = Location.new
+    authorize @location
   end
 
   def create
@@ -39,6 +39,7 @@ class LocationsController < ApplicationController
   end
 
   def destroy
+    authorize @location
     @location.destroy
     redirect_to root_path
   end

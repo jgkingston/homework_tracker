@@ -18,4 +18,18 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  private
+
+  def user_not_authorized(exception)
+     policy_name = exception.policy.class.to_s.underscore
+     p policy_name
+     p exception.query
+     flash[:alert] = I18n.t "pundit.#{policy_name}.#{exception.query}",
+       default: 'You cannot perform this action.'
+     redirect_to(request.referrer || root_path)
+     
+  end
+
 end

@@ -1,9 +1,0 @@
-
-.new-comment.affix {
-  position: fixed;
-  bottom: 20px;
-  box-shadow: 0 0 20px 30px #272B30;
-  background-color: #272B30;
-  width: 500px;
-  margin-left: 25px;
-}

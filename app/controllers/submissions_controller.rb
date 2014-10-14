@@ -13,6 +13,7 @@ class SubmissionsController < ApplicationController
 
   def new
     @submission = Submission.new
+    authorize @submission
   end
 
   def create
@@ -45,6 +46,8 @@ class SubmissionsController < ApplicationController
   def grade
     event = params[:event]+'!'
     @submission.send(event.to_sym)
+    # @submission.update_attributes submission_params
+    @submission.update_attribute(:grader, current_user )
     respond_to do |format|
       format.js
       format.html
@@ -62,7 +65,7 @@ class SubmissionsController < ApplicationController
   end
 
   def submission_params
-    params.require(:submission).permit(:title, :notes, :assignment_id, :user_id, :workflow_state, :repo, links_attributes: [:id, :path, :submission_id, :_destroy])
+    params.require(:submission).permit(:title, :notes, :assignment_id, :user_id, :workflow_state, :repo, :changed_by_user_id, links_attributes: [:id, :path, :submission_id, :_destroy])
   end
 
 end

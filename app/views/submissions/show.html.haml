@@ -14,6 +14,11 @@
         -if current_user.instructor?
           %p.workflow-options{ajax_path: grade_assignment_submission_path(@assignment, @submission)}
             = render 'submissions/workflow'
+        - grader = @submission.grader
+        - if grader
+          %p= "Last modified by: #{grader.full_name}"
+        
+  
     %div
       .well
         = @submission.notes

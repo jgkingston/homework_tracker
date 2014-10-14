@@ -5,12 +5,19 @@
         = "#{@assignment.summary} Assignment"
         - if current_user.instructor?
           = link_to "Edit", edit_assignment_path(@assignment)
+        - if current_user.student?  && (not user_has_submitted?(@assignment))
+          %span.pull-right{"data-container" => "body", "data-content" => "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.", "data-original-title" => "", "data-placement" => "top", "data-toggle" => "popover", :title => ""}
+            = link_to new_assignment_submission_path(@assignment) do
+              %i.glyphicon.glyphicon-file
+
+
       .well
         = @assignment.instructions
-    %div
+    / %div
       
-      - if current_user.student? && (not user_has_submitted?(@assignment))
-        = link_to "Submit", new_assignment_submission_path(@assignment)
+    /   - if current_user.student? && (not user_has_submitted?(@assignment))
+    /     = link_to "Submit", new_assignment_submission_path(@assignment)
+
     %div
       %h3 Submissions
       .list-group

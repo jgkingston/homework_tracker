@@ -20,25 +20,40 @@ describe LocationsController do
     end
   end
 
-  it "GET #new" do
-    sign_in
-    get :new
-    expect(assigns(:location).class).to eq(Location)
-    expect(assigns(:location).new_record?).to eq(true)
+  context 'as admin' do
+
+    before do
+      @user = FactoryGirl.create(:admin)
+      sign_in @user 
+    end
+    it "GET #new" do
+      get :new
+      expect(assigns(:location).class).to eq(Location)
+      expect(assigns(:location).new_record?).to eq(true)
+    end
   end
 
   describe "POST #create" do
-    it 'successful creation' do
-      sign_in
-      expect { post :create, location: attributes_for(:location) }.to change(Location, :count).by(1)
-      expect(response).to redirect_to root_path
-    end
 
-    it "failed creation" do
-      sign_in
-      expect { post :create, location: {state: ""} }.not_to change(Location, :count)
-      expect(response).to render_template :new
+    context 'as admin' do
+
+      before do
+        @user = FactoryGirl.create(:admin)
+        sign_in @user 
+      end
+
+      it 'successful creation' do
+        expect { post :create, location: attributes_for(:location) }.to change(Location, :count).by(1)
+        expect(response).to redirect_to root_path
+      end
+
+      it "failed creation" do
+        expect { post :create, location: {state: ""} }.not_to change(Location, :count)
+        expect(response).to render_template :new
+      end
+
     end
+    
   end
 
   describe "GET #edit" do
@@ -77,8 +92,9 @@ describe LocationsController do
     it 'should destroy an object' do
       sign_in
       puts location.id
-      expect { delete :destroy, id: location }.to change(Location, :count).by(-1)
-      expect(response).to redirect_to root_path
+      expect { delete :destroy, id: location }.to raise_error
+      # expect { delete :destroy, id: location }.to change(Location, :count).by(-1)
+      # expect(response).to redirect_to root_path
     end
   end
 

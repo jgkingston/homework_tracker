@@ -4,6 +4,7 @@ class Submission < ActiveRecord::Base
 
   belongs_to :assignment
   belongs_to :user
+  belongs_to :grader, class_name: "User", foreign_key: :changed_by_user_id
 
   has_many :links
 

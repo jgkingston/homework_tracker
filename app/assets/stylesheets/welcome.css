@@ -1,3 +1,8 @@
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
 .navbar-nav > li > a:hover{
   color: #fff;
   background-image: linear-gradient(to bottom,#222 0,#282828 100%);
@@ -16,4 +21,40 @@
 
 .hidden {
   display: none;
+}
+
+.btn-container {
+  margin-top: 67px;
+}
+
+a {
+  cursor: pointer;
+}
+
+.cohort-side-bar {
+}
+
+.cohort-side-bar.affix {
+  position: fixed;
+  top: 50px;
+  width: 350px
+}
+
+.affix {
+  transform: translate3d(0,0,0);
+}
+
+.new-comment {
+  position: fixed;
+  bottom: 20px;
+  box-shadow: 0 0 20px 30px #fff;
+  background-color: #fff;
+  width: 500px;
+  margin-left: 25px;
+}
+
+ .boxsizingBorder {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 }
